@@ -6,7 +6,7 @@ function App() {
   const [partDetails, setPartDetails] = useState(
     {
       name: 'Part- 0003717618',
-      image: require('./images/0003717618____________A1.png'),
+      image: require('./images/image.png'),
       missingCallouts: [5,4,7,10]
     }
   );
