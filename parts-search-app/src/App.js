@@ -5,25 +5,27 @@ import MissingCallout from './components/MissingCallout';
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showMissingCallout, setShowMissingCallout] = useState(null);
-  const [partDetails, setPartDetails] = useState(
-    {
-      name: 'Part- 0003717618',
+  const [partDetails, setPartDetails] = useState(null);
+
+  const handleSearch = async () => {
+    // Replace with your actual API endpoint
+    // const response = await fetch(`https://api.example.com/parts?search=${searchTerm}`);
+    // const data = await response.json();
+    const data = {
+      name: 'Hood',
       image: require('./images/image.png'),
       missingCallouts: [5,4,7,10]
     }
-  );
-  //const [missingPartCalloutID, setMissingPartCalloutID] = useState(null);
-  const handleSearch = async () => {
-    // Replace with your actual API endpoint
-    const response = await fetch(`https://api.example.com/parts?search=${searchTerm}`);
-    const data = await response.json();
     setPartDetails(data);
   };
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header>
         <h1>Parts Search</h1>
+      </header> 
+      <div className="two-panel"> 
+        <div>
         <input
           type="text"
           value={searchTerm}
@@ -31,9 +33,7 @@ function App() {
           placeholder="Enter part name or number"
         />
         <button onClick={handleSearch}>Search</button>
-        
-      </header> 
-      <div className="two-panel">
+        </div>
         <div className="left-panel">
           {partDetails && (
             <div className="part-details">
