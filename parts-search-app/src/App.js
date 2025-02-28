@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
+import MissingCallout from './components/MissingCallout';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [showMissingCallout, setShowMissingCallout] = useState(null);
   const [partDetails, setPartDetails] = useState(
     {
       name: 'Part- 0003717618',
@@ -10,8 +12,7 @@ function App() {
       missingCallouts: [5,4,7,10]
     }
   );
-  const [missingPartCalloutID, setMissingPartCalloutID] = useState(null);
-
+  //const [missingPartCalloutID, setMissingPartCalloutID] = useState(null);
   const handleSearch = async () => {
     // Replace with your actual API endpoint
     const response = await fetch(`https://api.example.com/parts?search=${searchTerm}`);
@@ -36,35 +37,18 @@ function App() {
         <div className="left-panel">
           {partDetails && (
             <div className="part-details">
-              <img src={partDetails.image} alt={partDetails.name} onClick={(e) => 
-                {
-                 console.log(e.target.src);
-                 document.getElementsByName('canvasImage')[0].src = partDetails.image;
-                }
-              }/>
               <h2>{partDetails.name}</h2>
-              <h3>Missing Callouts:</h3>
-                {partDetails.missingCallouts.map((callout, index) => (
-                <div key={index}>
-                <input type="radio" id={`checkbox-${callout}`} onClick={() => setMissingPartCalloutID(callout)}/>     
-                <label htmlFor={`checkbox-${callout}`}>{callout}</label>
-              </div>
-                ))}
+              <img src={partDetails.image} alt={partDetails.name} onClick={() => setShowMissingCallout(partDetails)}/>
             </div>
           )}
         </div>
         <div className="right-panel">
-        <img name="canvasImage" alt="Placeholder" height="500px" width="500px"
-        onClick={(e) => captureCoords(missingPartCalloutID,e.clientX, e.clientY)}/>
+          {showMissingCallout && <MissingCallout partDetails={showMissingCallout} />}
         </div>
       </div>
   </div>
   );
 }
 
-function captureCoords(id, x, y) {
-  console.log(`ID: ${id} is at position X: ${x}, Y: ${y}`);
-  window.alert(`ID: ${id} is at position X: ${x}, Y: ${y}`);
-  // Add your logic here to handle the coordinates
-}
+
 export default App;
