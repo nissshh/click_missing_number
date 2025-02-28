@@ -12,8 +12,8 @@ const MissingCallout = ({ partDetails }) => {
         const img = event.target;
         debugger
         const rect = img.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+        const x = Math.floor(event.clientX - rect.left);
+        const y = Math.floor(event.clientY - rect.top);
         console.log(`ID: ${id} is at position X: ${x}, Y: ${y}`);
         window.alert(`ID: ${id} is at position X: ${x}, Y: ${y}`);
         // Add your logic here to handle the coordinates
@@ -33,7 +33,7 @@ const MissingCallout = ({ partDetails }) => {
         ))}
         <div className="right-panel">
             <div className= "tooltip">
-                <img src={partDetails.image} className="part" name="canvasImage" alt="Placeholder" height="500px" width="500px"
+                <img src={partDetails.image} className="part" name="canvasImage" alt="Placeholder"
                 onClick={(e) => {console.log(e);captureCoords(missingPartCalloutID,e)}}
                 onMouseOver={(e) => {e.target.alt=missingPartCalloutID}}/>
                 <span className="tooltiptext">{missingPartCalloutID}</span>
