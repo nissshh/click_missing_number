@@ -24,16 +24,16 @@ function App() {
       <header>
         <h1>Parts Search</h1>
       </header> 
+      <div className='top-panel'>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Enter part name or number"
+      />
+      <button onClick={handleSearch}>Search</button>
+      </div>
       <div className="two-panel"> 
-        <div>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Enter part name or number"
-        />
-        <button onClick={handleSearch}>Search</button>
-        </div>
         <div className="left-panel">
           {partDetails && (
             <div className="part-details">

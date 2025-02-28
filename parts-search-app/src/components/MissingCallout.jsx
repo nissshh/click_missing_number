@@ -3,11 +3,21 @@
  * Column one will contain labels and column two will contain text boxes.
  */
 import React, { useState } from 'react';
-// import './MissingCallout.css';
+import './MissingCallout.css';
 
 
 const MissingCallout = ({ partDetails }) => {
     const [missingPartCalloutID,setMissingPartCalloutID] = useState(null);
+    const captureCoords = (id, event) => {
+        const img = event.target;
+        debugger
+        const rect = img.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        console.log(`ID: ${id} is at position X: ${x}, Y: ${y}`);
+        window.alert(`ID: ${id} is at position X: ${x}, Y: ${y}`);
+        // Add your logic here to handle the coordinates
+      };
     return (
         <div className="missing-callout">
         <h3>Missing Callouts:</h3>
@@ -22,16 +32,16 @@ const MissingCallout = ({ partDetails }) => {
             </div>
         ))}
         <div className="right-panel">
-            <img src={partDetails.image} name="canvasImage" alt="Placeholder" height="500px" width="500px"
-            onClick={(e) => captureCoords(missingPartCalloutID,e.clientX, e.clientY)}/>
+            <div className= "tooltip">
+                <img src={partDetails.image} className="part" name="canvasImage" alt="Placeholder" height="500px" width="500px"
+                onClick={(e) => {console.log(e);captureCoords(missingPartCalloutID,e)}}
+                onMouseOver={(e) => {e.target.alt=missingPartCalloutID}}/>
+                <span className="tooltiptext">{missingPartCalloutID}</span>
+            </div>
         </div>
         </div>
         
     );
 }
-function captureCoords(id, x, y) {
-    console.log(`ID: ${id} is at position X: ${x}, Y: ${y}`);
-    window.alert(`ID: ${id} is at position X: ${x}, Y: ${y}`);
-    // Add your logic here to handle the coordinates
-  }
+
 export default MissingCallout;
